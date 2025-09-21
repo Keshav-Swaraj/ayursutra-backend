@@ -45,3 +45,30 @@ export const getPatientProfile = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+// @desc    Get all patient profiles
+// @route   GET /api/patients
+// @access  Private/Doctor
+export const getAllPatients = async (req, res) => {
+  try {
+    const patients = await Patient.find({}).populate('user', 'name email');
+    res.json(patients);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// @desc    Get patient by ID
+// @route   GET /api/patients/:id
+// @access  Private/Doctor
+export const getPatientById = async (req, res) => {
+  try {
+    const patient = await Patient.findById(req.params.id).populate('user', 'name email');
+    if (!patient) {
+      return res.status(404).json({ message: 'Patient not found' });
+    }
+    res.json(patient);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
