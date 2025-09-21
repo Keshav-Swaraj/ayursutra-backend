@@ -6,6 +6,9 @@ import connectDB from './config/db.js';
 // Routes
 import authRoutes from './routes/auth.route.js';
 import patientRoutes from './routes/patients.route.js';
+import protocolRoutes from './routes/protocols.route.js';
+import appointmentRoutes from './routes/appointments.route.js';
+import progressRoutes from './routes/progress.route.js';
 
 dotenv.config();
 connectDB();
@@ -24,6 +27,11 @@ app.get('/', (req, res) => {
 // NOTE: We will add our API routes here later
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
+app.use('/api/protocols', protocolRoutes);
+app.use('/api/appointments', appointmentRoutes);
+app.use('/api/progress', progressRoutes);
 
 // Export the Express app as a serverless function
-export default app;
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
+});
