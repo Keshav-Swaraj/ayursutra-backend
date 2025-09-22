@@ -38,3 +38,24 @@ export const getPatientProgress = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+// @desc    Get current patient's own progress entries
+// @route   GET /api/progress/me
+// @access  Private/Patient
+export const getMyProgress = async (req, res) => {
+  try {
+    const patientProfile = await Patient.findOne({ user: req.user._id });
+    
+    if (!patientProfile) {
+      return res.status(404).json({ message: 'Patient profile not found. Please create your profile first.' });
+    }
+
+    const progressEntries = await Progress.find({ patient: patientProfile._id })
+      .sort({ logDate: -1 });
+    
+    res.json(progressEntries);
+  } catch (error) {
+    console.error('Error in getMyProgress:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
