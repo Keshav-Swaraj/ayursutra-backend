@@ -18,7 +18,22 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+
+const allowedOrigins = [
+  'https://ayursutra-two.vercel.app', // <-- Add your Vercel frontend URL here
+  // Add other URLs if needed
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+}));
+
 app.use(express.json());
 
 // A simple test route to check if the server is running
