@@ -33,6 +33,8 @@ app.use('/api/protocols', protocolRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/progress', progressRoutes);
 
-// Export the Express app as a serverless function
-// This is the core change for Vercel deployment.
-export default app;
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
