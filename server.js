@@ -1,24 +1,18 @@
+// backend/server.js
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 
 // Routes
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import connectDB from './config/db.js';
-
-// Routes
-import authRoutes from './routes/auth.route.js';
-import patientRoutes from './routes/patients.route.js';
-import protocolRoutes from './routes/protocols.route.js';
-import appointmentRoutes from './routes/appointments.route.js';
-import progressRoutes from './routes/progress.route.js';
-import cloudinaryRoutes from './routes/cloudinary.route.js';
+import authRoutes from './routes/auth.js';
+import patientRoutes from './routes/patients.js';
+import protocolRoutes from './routes/protocols.js';
+import appointmentRoutes from './routes/appointments.js';
+import progressRoutes from './routes/progress.js';
+import cloudinaryRoutes from './routes/cloudinary.js';
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
@@ -31,7 +25,7 @@ app.get('/', (req, res) => {
   res.send('AyurSutra API is running...');
 });
 
-// NOTE: We will add our API routes here later
+// Mount your API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/protocols', protocolRoutes);
