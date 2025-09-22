@@ -4,6 +4,12 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 
 // Routes
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
+
+// Routes
 import authRoutes from './routes/auth.route.js';
 import patientRoutes from './routes/patients.route.js';
 import protocolRoutes from './routes/protocols.route.js';
@@ -34,6 +40,5 @@ app.use('/api/progress', progressRoutes);
 app.use('/api/cloudinary', cloudinaryRoutes);
 
 // Export the Express app as a serverless function
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
-});
+// This is the core change for Vercel deployment.
+export default app;
